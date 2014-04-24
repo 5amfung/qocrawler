@@ -34,4 +34,23 @@ Install dependency.
     $ deactivate
     
     
+# How to Start Crawling
 
+For development and testing right now, the yelp crawler is set up to crawl just a few sites.
+
+    $ cd qocrawl
+    $ source ./env/bin/activate
+    $ scrapy crawl testyelp
+    
+For crawling a big site, the crawling cannot complete in a short period of time.  You may pause (ctrl-c) and resume.
+
+    $ make jobs
+    $ scrapy crawl bigsitespider -s JOBDIR=jobs/bigsitespider-1
+
+To resume, run this again.
+
+    $ scrapy crawl bigsitespider -s JOBDIR=jobs/bigsitespider-1
+    
+    
+        
+    

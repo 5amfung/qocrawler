@@ -10,10 +10,10 @@ class ReviewItem(Item):
     """A scraped item for restaurant reviews."""
 
     # URL of the page.
-    url = Field
+    url = Field()
 
     # Title of the page.
-    title = Field
+    title = Field()
 
-    # Review content
-    review_content = Field
+    # Restaurant name.
+    name = Field()

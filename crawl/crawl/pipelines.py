@@ -6,7 +6,10 @@
 from scrapy import log
 
 
-class CrawlPipeline(object):
+class ValidateItemPipeline(object):
     def process_item(self, item, spider):
-        log.msg('Process item from CrawlPipeline.', level=log.INFO)
+
+        # TODO: Not doing any for now.
+        log.msg('Validate item.', level=log.DEBUG)
+
         return item
