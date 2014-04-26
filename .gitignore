@@ -54,3 +54,8 @@ docs/_build/
 
 # IDE pycharm
 .idea/
+
+# Nodejs stuff 
+node_modules
+npm-debug.log
+
