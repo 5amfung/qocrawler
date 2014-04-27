@@ -3,6 +3,7 @@
 from scrapy.selector import Selector
 from scrapy.spider import Spider
 from crawl import items
+from crawl import util
 
 
 class YelpSpider(Spider):
@@ -21,12 +22,7 @@ class YelpSpider(Spider):
 
     def parse(self, response):
         sel = Selector(response)
-        review = items.ReviewItem()
-        review['name'] = trim(sel.css('.biz-page-title::text').extract())
-        review['title'] = trim(sel.xpath('//title/text()').extract())
+        restaurant = items.YelpRestaurant()
+        restaurant['name'] = util.trim(sel.css('.biz-page-title::text').extract())
+        restaurant['page_title'] = util.trim(sel.xpath('//title/text()').extract())
         return review
-
-
-def trim(lst):
-    """Trim and return the first element of a list.  Otherwise, return an empty string."""
-    return lst[0].strip() if lst else ''
