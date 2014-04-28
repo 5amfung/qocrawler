@@ -7,20 +7,17 @@ from scrapy.item import Field
 from scrapy.item import Item
 
 
-class YelpRestaurant(Item):
-    """Restaurant from Yelp."""
+class YelpReview(Item):
+    """Information of a restaurant.
+
+    All fields are string unless specified otherwise.
+    """
 
     # Crawl date.
     crawl_date = Field()
 
     # URL of the page that we crawled.
     page_url = Field()
-
-    # Title of the page.
-    page_title = Field()
-
-    # Web page date.  This is the date that the server responded.
-    page_date = Field()
 
     # Name of the restaurant.
     name = Field()
@@ -32,7 +29,7 @@ class YelpRestaurant(Item):
     # State
     region = Field()
     # Postal code
-    postal_code = Feild()
+    postal_code = Field()
 
     # Phone
     phone = Field()
@@ -46,7 +43,7 @@ class YelpRestaurant(Item):
     # Restaurant rating.
     rating = Field()
 
-    # Restaurant category.
+    # Restaurant category.  This could be a string or a list of categories.
     category = Field()
 
     # Review content.
@@ -66,3 +63,4 @@ class YelpRestaurant(Item):
 
     # Reviewer's reviews count.
     reviewer_reviews_count = Field()
+

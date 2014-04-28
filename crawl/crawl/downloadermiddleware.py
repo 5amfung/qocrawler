@@ -1,4 +1,4 @@
-#
+# Download middleware to randamize user agents.
 #
 
 from crawl.settings import USER_AGENT_LIST
