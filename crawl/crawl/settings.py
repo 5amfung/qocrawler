@@ -18,6 +18,8 @@ COOKIES_ENABLED = False
 RANDOMIZE_DOWNLOAD_DELAY = True
 DOWNLOAD_DELAY = 5
 
+# Limit number of page crawling during development.
+CLOSESPIDER_PAGECOUNT = 10
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
