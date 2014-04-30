@@ -16,7 +16,7 @@ COOKIES_ENABLED = False
 
 # Random delay from 0.5 and 1.5 * DOWNLOAD_DELAY
 RANDOMIZE_DOWNLOAD_DELAY = True
-DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 5
 
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
