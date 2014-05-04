@@ -20,51 +20,63 @@ class YelpReview(Item):
     # URL of the page that we crawled.
     page_url = Field()
 
+    # Yelp biz ID.
+    yelp_biz_id = Field(output_processor=TakeFirst())
+
     # Name of the restaurant.
-    name = Field(output_processor=TakeFirst())
+    restaurant_name = Field(output_processor=TakeFirst())
 
     # Restaurant address.
-    address = Field(output_processor=TakeFirst())
+    restaurant_address = Field(output_processor=TakeFirst())
 
     # City
-    city = Field(output_processor=TakeFirst())
+    restaurant_city = Field(output_processor=TakeFirst())
 
     # State
-    state = Field(output_processor=TakeFirst())
+    restaurant_state = Field(output_processor=TakeFirst())
 
     # Postal code
-    postal_code = Field(output_processor=TakeFirst())
+    restaurant_postal_code = Field(output_processor=TakeFirst())
 
     # Phone
-    phone = Field(output_processor=TakeFirst())
+    restaurant_phone = Field(output_processor=TakeFirst())
 
     # Restaurant website
-    website = Field(output_processor=TakeFirst())
+    restaurant_website = Field(output_processor=TakeFirst())
 
     # Restaurant reviews count.
-    reviews_count = Field(output_processor=TakeFirst())
+    restaurant_reviews_count = Field(output_processor=TakeFirst())
 
     # Restaurant rating.
-    rating = Field(output_processor=TakeFirst())
+    restaurant_rating = Field(output_processor=TakeFirst())
 
     # Restaurant category.  This could be a string or a list of categories.
-    category = Field()
+    restaurant_category = Field()
 
-    # Review content.
-    review_content = Field(output_processor=TakeFirst())
+    # Review ID.
+    review_id = Field(output_processor=TakeFirst())
+
+    # Review content.  A list of paragraphs.
+    review_content = Field()
 
     # Review content date.
     review_content_date = Field(output_processor=TakeFirst())
 
-    # Reviewer's name.
+    # Reviewer restaurant rating.
+    reviewer_restaurant_rating = Field(output_processor=TakeFirst())
+
+    # Reviewer name.
     reviewer_name = Field(output_processor=TakeFirst())
 
-    # Reviewer's location.
+    # Reviewer URL
+    reviewer_url = Field(output_processor=TakeFirst())
+
+    # Reviewer location.
     reviewer_location = Field(output_processor=TakeFirst())
 
-    # Reviewer's friends count.
+    # Reviewer friends count.
     reviewer_friends_count = Field(output_processor=TakeFirst())
 
-    # Reviewer's reviews count.
+    # Reviewer reviews count.
     reviewer_reviews_count = Field(output_processor=TakeFirst())
 

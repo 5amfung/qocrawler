@@ -8,8 +8,4 @@ from scrapy import log
 
 class ValidateItemPipeline(object):
     def process_item(self, item, spider):
-
-        # TODO: Not doing any for now.
-        log.msg('Validate item.', level=log.DEBUG)
-
         return item
