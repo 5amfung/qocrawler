@@ -6,6 +6,9 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
+# Default log level is debug.  Uncomment to reduce verbose.
+# LOG_LEVEL = 'INFO'
+
 BOT_NAME = 'crawl'
 
 SPIDER_MODULES = ['crawl.spiders']
@@ -19,7 +22,7 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 DOWNLOAD_DELAY = 5
 
 # Limit number of page crawling during development.
-CLOSESPIDER_PAGECOUNT = 10
+CLOSESPIDER_PAGECOUNT = 2
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
@@ -39,6 +42,6 @@ USER_AGENT_LIST = [
 ]
 
 # Item pipelines
-ITEM_PIPELINES = {
-    'crawl.pipelines.ValidateItemPipeline': 100,
-}
+# ITEM_PIPELINES = {
+#     'crawl.pipelines.DedupPipeline': 100,
+# }
