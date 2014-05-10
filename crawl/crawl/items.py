@@ -18,7 +18,7 @@ class YelpReview(Item):
     crawl_date = Field(output_processor=TakeFirst())
 
     # Crawled page URL.
-    page_url = Field()
+    page_url = Field(output_processor=TakeFirst())
 
     # Yelp biz ID.
     yelp_biz_id = Field(output_processor=TakeFirst())
