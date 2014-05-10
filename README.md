@@ -42,7 +42,7 @@ The crawler is set up to stop after about 20 urls.  So run the following to see 
     
 The crawler is set up to stop after about downloading 20 urls and cached the downloaded content locally during development.  Disable them for production.
 
-    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO
 
 You may pause (ctrl-c) and resume by persisting the state.
 

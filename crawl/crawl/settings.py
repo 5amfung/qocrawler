@@ -6,8 +6,8 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-# Default log level is debug.  Set to INFO to reduce verbosity.
-# LOG_LEVEL = 'INFO'
+# Add -L DEBUG to command line if you want more verbosity.
+LOG_LEVEL = 'INFO'
 
 # Limit number of page crawling for development.  Comment out to remove limit.
 CLOSESPIDER_PAGECOUNT = 20
@@ -28,7 +28,7 @@ COOKIES_ENABLED = False
 
 # Random delay from 0.5 and 1.5 * DOWNLOAD_DELAY
 RANDOMIZE_DOWNLOAD_DELAY = True
-DOWNLOAD_DELAY = 5
+DOWNLOAD_DELAY = 3
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
