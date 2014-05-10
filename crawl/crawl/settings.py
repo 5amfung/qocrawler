@@ -6,8 +6,17 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-# Default log level is debug.  Uncomment to reduce verbose.
+# Default log level is debug.  Set to INFO to reduce verbosity.
 # LOG_LEVEL = 'INFO'
+
+# Limit number of page crawling for development.  Comment out to remove limit.
+CLOSESPIDER_PAGECOUNT = 20
+
+# Enable cache for development.  Disable for production.
+HTTPCACHE_ENABLED = True
+
+
+### Settings belows this line should not require any changes. ###
 
 BOT_NAME = 'Yelp'
 
@@ -20,9 +29,6 @@ COOKIES_ENABLED = False
 # Random delay from 0.5 and 1.5 * DOWNLOAD_DELAY
 RANDOMIZE_DOWNLOAD_DELAY = True
 DOWNLOAD_DELAY = 5
-
-# Limit number of page crawling during development.  Comment out if necessary.
-CLOSESPIDER_PAGECOUNT = 30
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
@@ -40,8 +46,3 @@ USER_AGENT_LIST = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20120101 Firefox/29.0',
     'Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0',
 ]
-
-# Item pipelines
-# ITEM_PIPELINES = {
-#     'crawl.pipelines.DedupPipeline': 100,
-# }

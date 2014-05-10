@@ -36,15 +36,17 @@ Install dependency.
     
 # How to Start Crawling
 
-For development and testing right now, the yelp crawler is set up to crawl just a few sites.
+The crawler is set up to stop after about 20 urls.  So run the following to see how it works.
 
-    $ cd qocrawl
-    $ source ./env/bin/activate
-    $ scrapy crawl testyelp
+    $ scrapy crawl yelp
     
-For crawling a big site, the crawling cannot complete in a short period of time.  You may pause (ctrl-c) and resume.
+The crawler is set up to stop after about downloading 20 urls and cached the downloaded content locally during development.  Disable them for production.
 
-    $ make jobs
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False
+
+You may pause (ctrl-c) and resume by persisting the state.
+
+    $ mkdir jobs
     $ scrapy crawl bigsitespider -s JOBDIR=jobs/bigsitespider-1
 
 To resume, run this again.
