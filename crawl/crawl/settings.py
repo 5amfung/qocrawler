@@ -33,7 +33,8 @@ DOWNLOAD_DELAY = 3
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-    'crawl.downloadermiddleware.RandomUserAgentDownloaderMiddleware': 400,
+    'crawl.middleware.RandomUserAgentDownloaderMiddleware': 400,
+    'crawl.middleware.ProxyMiddleware': 410,
 }
 USER_AGENT_LIST = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36',
