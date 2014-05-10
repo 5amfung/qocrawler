@@ -1,2 +1,3 @@
 Scrapy==0.22.2
 lxml==3.3.5
+scrapyd==1.0.1

@@ -9,7 +9,7 @@
 # Default log level is debug.  Uncomment to reduce verbose.
 # LOG_LEVEL = 'INFO'
 
-BOT_NAME = 'crawl'
+BOT_NAME = 'Yelp'
 
 SPIDER_MODULES = ['crawl.spiders']
 NEWSPIDER_MODULE = 'crawl.spiders'
@@ -21,8 +21,8 @@ COOKIES_ENABLED = False
 RANDOMIZE_DOWNLOAD_DELAY = True
 DOWNLOAD_DELAY = 5
 
-# Limit number of page crawling during development.
-CLOSESPIDER_PAGECOUNT = 2
+# Limit number of page crawling during development.  Comment out if necessary.
+CLOSESPIDER_PAGECOUNT = 30
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {

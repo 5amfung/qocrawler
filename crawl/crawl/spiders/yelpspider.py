@@ -19,36 +19,58 @@ class YelpSpider(CrawlSpider):
 
     Set CLOSESPIDER_PAGECOUNT in settings.py to limit maximum.
     """
-    name = 'testcrawl'
+    name = 'yelp'
     allowed_domains = _ALLOWED_DOMAINS
 
     start_urls = (
-        'http://www.yelp.com/biz/nopa-san-francisco',
+        'http://www.yelp.com/search?find_loc=San+Francisco%2C+CA&cflt=restaurants',
     )
 
     # Rules for following links.
     rules = (
-        # Pagination section of a restaurant review.
+        # Search results page for San Francisco restaurants.
         Rule(
+            # Follow restaurants links in search results page.
+            SgmlLinkExtractor(
+                allow=(
+                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants&start=\d+$',
+                ),
+                deny=(
+                    # No need to follow first page again.  First page has implicit start=0.
+                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants&start=0$',
+                ),
+                restrict_xpaths=(
+                    '//div[contains(@class, "search-pagination")]',
+                ),
+                allow_domains=_ALLOWED_DOMAINS
+            ),
+            follow=True
+        ),
+
+        Rule(
+            # Restaurant reviews page.
             SgmlLinkExtractor(
                 allow=(
                     # www.yelp.com/biz/nopa-san-francisco
-                    r'www.yelp.com/biz/[\w-]+$',
+                    r'/biz/[\w-]+$',
 
                     # www.yelp.com/biz/nopa-san-francisco?start=40
-                    r'www.yelp.com/biz/.+\?start=\d+$',
+                    r'/biz/.+\?start=\d+$',
                 ),
                 deny=(
-                    # No need to crawl first page again.  Starting page has implicit start=0.
+                    # No need to follow first page again.  First page has implicit start=0.
                     # www.yelp.com/biz/nopa-san-francisco?start=0
-                    r'www.yelp.com/biz/.+\?start=0$',
+                    r'/biz/.+\?start=0$',
                 ),
                 restrict_xpaths=(
-                    # Pagination section.
+                    # Review pagination section in a /biz/{restaurant} page.
                     '//ul[contains(@class, "pagination-links")]',
 
-                    # Related business section.
+                    # Related business section in a /biz/{restaurant} page.
                     '//div[contains(@class, "related-business")]',
+
+                    # Search results section in a search results page.
+                    '//ul[contains(@class, "search-results")]',
                 ),
                 allow_domains=_ALLOWED_DOMAINS
             ),
