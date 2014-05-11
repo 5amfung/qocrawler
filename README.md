@@ -32,27 +32,31 @@ Install dependency.
     $ source ./env/bin/activate
     $ pip install -r requirements.txt
     $ deactivate
-    
-    
+
+
 # How to Start Crawling
 
 The crawler is set up to stop after about 20 urls.  So run the following to see how it works.
 
     $ scrapy crawl yelp
-    
-The crawler is set up to stop after about downloading 20 urls and cached the downloaded content locally during development.  Disable them for production.
 
-    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO
+If you want the spider to crawl all the pages, set ```CLOSEPSIDER_PAGECOUNT``` to 0.
 
-You may pause (ctrl-c) and resume by persisting the state.  Just add ```-s JOBDIR``` to the command line.
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0
+
+To save scraped items to a file in json format, add ```-t jsonlines -o results.json``` to the command line.
+
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 -t jsonlines -o results.json
+
+You may pause (ctrl-c) and resume by persisting the state.  Just add ```--set JOBDIR``` to the command line.
 
     $ mkdir jobs
-    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO -s JOBDIR=jobs/yelp-1
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set JOBDIR=jobs/yelp-1
 
 To resume, run this again.
 
-    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO -s JOBDIR=jobs/yelp-1
-    
-    
-        
-    
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set JOBDIR=jobs/yelp-1
+
+
+
+

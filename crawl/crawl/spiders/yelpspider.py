@@ -52,15 +52,13 @@ class YelpSpider(CrawlSpider):
             SgmlLinkExtractor(
                 allow=(
                     # www.yelp.com/biz/nopa-san-francisco
-                    r'/biz/[\w-]+$',
-
                     # www.yelp.com/biz/nopa-san-francisco?start=40
-                    r'/biz/.+\?start=\d+$',
+                    r'/biz/.+?-san-francisco(-[\d]+)?(\?start=\d+)?$',
                 ),
                 deny=(
                     # No need to follow first page again.  First page has implicit start=0.
                     # www.yelp.com/biz/nopa-san-francisco?start=0
-                    r'/biz/.+\?start=0$',
+                    r'/biz/.+?-san-francisco(-[\d]+)?\?start=0$',
                 ),
                 restrict_xpaths=(
                     # Review pagination section in a /biz/{restaurant} page.
