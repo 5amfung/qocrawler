@@ -15,6 +15,9 @@ CLOSESPIDER_PAGECOUNT = 20
 # Enable cache for development.  Disable for production.
 HTTPCACHE_ENABLED = True
 
+# Http proxy address
+# HTTP_PROXY = '127.0.0.1:1234'
+
 
 ### Settings belows this line should not require any changes. ###
 

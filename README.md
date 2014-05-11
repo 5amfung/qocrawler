@@ -44,14 +44,14 @@ The crawler is set up to stop after about downloading 20 urls and cached the dow
 
     $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO
 
-You may pause (ctrl-c) and resume by persisting the state.
+You may pause (ctrl-c) and resume by persisting the state.  Just add ```-s JOBDIR``` to the command line.
 
     $ mkdir jobs
-    $ scrapy crawl bigsitespider -s JOBDIR=jobs/bigsitespider-1
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO -s JOBDIR=jobs/yelp-1
 
 To resume, run this again.
 
-    $ scrapy crawl bigsitespider -s JOBDIR=jobs/bigsitespider-1
+    $ scrapy crawl yelp --set CLOSESPIDER_PAGECOUNT=0 --set HTTPCACHE_ENABLED=False --loglevel=INFO -s JOBDIR=jobs/yelp-1
     
     
         
