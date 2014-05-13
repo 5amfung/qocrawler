@@ -1,5 +1,7 @@
 # Yelp spider.
 
+import urllib
+
 from datetime import datetime
 
 from crawl.items import YelpReview
@@ -13,6 +15,59 @@ from scrapy.selector import Selector
 
 # Allowed domain when extracting links from pages.
 _ALLOWED_DOMAINS = ('www.yelp.com',)
+
+# Restrict to a set of cities.  Used in search and extraction rules.
+_CITIES = [
+    'San Francisco'
+    #,
+    # 'Alameda',
+    # 'Belmont',
+    # 'Berkeley',
+    # 'Brisbane',
+    # 'Burlingame',
+    # 'Colma',
+    # 'Cupertino',
+    # 'Daly City',
+    # 'Dublin',
+    # 'East Palo Alto',
+    # 'Emeryville',
+    # 'Foster City',
+    # 'Fremont',
+    # 'Hayward',
+    # 'Lafayette',
+    # 'Menlo Park',
+    # 'Millbrae',
+    # 'Milpitas',
+    # 'Mountain View',
+    # 'Napa',
+    # 'Oakland',
+    # 'Pacifica',
+    # 'Palo Alto',
+    # 'Pleasanton',
+    # 'Redwood City',
+    # 'San Bruno',
+    # 'San Carlos',
+    # 'San Jose',
+    # 'San Leandro',
+    # 'San Lorenzo',
+    # 'San Mateo',
+    # 'San Ramon',
+    # 'Santa Clara',
+    # 'Sausalito',
+    # 'South San Francisco',
+    # 'Sunnyvale',
+    # 'Union City',
+    # 'Vallejo',
+    # 'Yountville'
+]
+
+_START_URLS = 'http://www.yelp.com/search?find_loc={0}%2C+CA&cflt=restaurants'
+
+_ALLOW_SEARCH_STR = r'/search\?find_loc={0}%2C\+CA&cflt=restaurants(&start=\d+)?$'
+_DENY_SEARCH_STR = r'/search\?find_loc={0}%2C\+CA&cflt=restaurants&start=0$'
+
+_ALLOW_URL_STR = r'/biz/.+?-{0}(-[\d]+)?(\?start=\d+)?$'
+_DENY_URL_STR = r'/biz/.+?-{0}(-[\d]+)?\?start=0$'
 
 
 class YelpSpider(CrawlSpider):
@@ -28,23 +83,20 @@ class YelpSpider(CrawlSpider):
     name = 'yelp'
     allowed_domains = _ALLOWED_DOMAINS
 
-    start_urls = (
-        'http://www.yelp.com/search?find_loc=San+Francisco%2C+CA&cflt=restaurants',
-    )
+    start_urls = [_START_URLS.format(urllib.quote_plus(c)) for c in _CITIES]
 
-    # Rules for following links.
+    # Rules for following and extracting links.
     rules = (
-        # Search results page for San Francisco restaurants.
+        # Search results page.
         Rule(
-            # Follow restaurants links in search results page.
             SgmlLinkExtractor(
-                allow=(
-                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants(&start=\d+)?$',
-                ),
-                deny=(
-                    # No need to follow first page again.  First page has implicit start=0.
-                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants&start=0$',
-                ),
+                # /search?find_loc=San+Francisco%2C+CA&cflt=restaurants
+                # /search?find_loc=San+Francisco%2C+CA&cflt=restaurants&start=10
+                allow=(_ALLOW_SEARCH_STR.format(urllib.quote_plus(c)) for c in _CITIES),
+
+                # No need to follow first page again.  First page has implicit start=0.
+                # /search?find_loc=San+Francisco%2C+CA&cflt=restaurants&start=0
+                deny=(_DENY_SEARCH_STR.format(urllib.quote_plus(c)) for c in _CITIES),
                 restrict_xpaths=(
                     '//div[contains(@class, "search-pagination")]',
                 ),
@@ -53,19 +105,17 @@ class YelpSpider(CrawlSpider):
             follow=True
         ),
 
+        # Review page.
         Rule(
-            # Restaurant reviews page.
             SgmlLinkExtractor(
-                allow=(
-                    # www.yelp.com/biz/nopa-san-francisco
-                    # www.yelp.com/biz/nopa-san-francisco?start=40
-                    r'/biz/.+?-san-francisco(-[\d]+)?(\?start=\d+)?$',
-                ),
-                deny=(
-                    # No need to follow first page again.  First page has implicit start=0.
-                    # www.yelp.com/biz/nopa-san-francisco?start=0
-                    r'/biz/.+?-san-francisco(-[\d]+)?\?start=0$',
-                ),
+                # www.yelp.com/biz/nopa-san-francisco
+                # www.yelp.com/biz/nopa-san-francisco?start=40
+                allow=(_ALLOW_URL_STR.format('-'.join(c.lower().split())) for c in _CITIES),
+
+                # No need to follow first page again.  First page has implicit start=0.
+                # www.yelp.com/biz/nopa-san-francisco?start=0
+                deny=(_DENY_URL_STR.format('-'.join(c.lower().split())) for c in _CITIES),
+
                 restrict_xpaths=(
                     # Review pagination section in a /biz/{restaurant} page.
                     '//ul[contains(@class, "pagination-links")]',
