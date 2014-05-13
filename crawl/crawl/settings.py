@@ -50,3 +50,6 @@ USER_AGENT_LIST = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20120101 Firefox/29.0',
     'Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0',
 ]
+
+# Disable redirect.
+REDIRECT_ENABLED = False

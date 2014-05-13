@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from crawl.items import YelpReview
+from scrapy import log
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.loader import ItemLoader
 from scrapy.contrib.spiders import CrawlSpider
@@ -18,6 +19,11 @@ class YelpSpider(CrawlSpider):
     """A spider to crawl recursively starting from URLs specified in start_urls.
 
     Set CLOSESPIDER_PAGECOUNT in settings.py to limit maximum.
+
+    Following is contracts for testing spider.
+    @url http://www.yelp.com/biz/nopa-san-francisco
+    @returns items 1 40
+    @scrapes yelp_biz_id restaurant_name restaurant_category review_content
     """
     name = 'yelp'
     allowed_domains = _ALLOWED_DOMAINS
@@ -33,7 +39,7 @@ class YelpSpider(CrawlSpider):
             # Follow restaurants links in search results page.
             SgmlLinkExtractor(
                 allow=(
-                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants&start=\d+$',
+                    r'/search\?find_loc=San\+Francisco%2C\+CA&cflt=restaurants(&start=\d+)?$',
                 ),
                 deny=(
                     # No need to follow first page again.  First page has implicit start=0.
@@ -107,7 +113,13 @@ class YelpSpider(CrawlSpider):
     }
 
     def parse_review(self, response):
+        self.log('Parse URL: %s' % response.url, level=log.INFO)
+
         sel = Selector(response)
+
+        if not self._is_right_category(sel):
+            return
+
         loader = ItemLoader(item=YelpReview(), selector=sel)
         loader.add_value('crawl_date', '%s' % datetime.utcnow())
         loader.add_value('page_url', response.url)
@@ -129,3 +141,10 @@ class YelpSpider(CrawlSpider):
             reviews.append(review_loader.load_item())
 
         return reviews
+
+    @classmethod
+    def _is_right_category(cls, selector):
+        """Return true if selector finds a specific string that indicates the right category."""
+        return (len(selector.re('<span itemprop="title">Restaurants</span>')) or
+                len(selector.re('<span itemprop="title">Food</span>')) or
+                len(selector.re('<span itemprop="title">Nightlife</span>')))
