@@ -15,9 +15,6 @@ CLOSESPIDER_PAGECOUNT = 20
 # Enable cache for development.  Disable for production.
 HTTPCACHE_ENABLED = True
 
-# Http proxy address
-# HTTP_PROXY = '127.0.0.1:1234'
-
 
 ### Settings belows this line should not require any changes. ###
 
@@ -37,7 +34,6 @@ DOWNLOAD_DELAY = 2
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
     'crawl.middleware.RandomUserAgentDownloaderMiddleware': 400,
-    'crawl.middleware.ProxyMiddleware': 410,
 }
 USER_AGENT_LIST = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36',
