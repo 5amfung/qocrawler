@@ -54,4 +54,10 @@ REDIRECT_ENABLED = False
 CONCURRENT_REQUESTS = 30
 
 # Max concurrent requests to any single domain.
-CONCURRENT_REQUESTS_PER_DOMAIN = 15
+CONCURRENT_REQUESTS_PER_DOMAIN = 30
+
+# FIFO
+DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = 'scrapy.squeue.PickleFifoDiskQueue'
+SCHEDULER_MEMORY_QUEUE = 'scrapy.squeue.FifoMemoryQueue'
+
