@@ -53,3 +53,9 @@ USER_AGENT_LIST = [
 
 # Disable redirect.
 REDIRECT_ENABLED = False
+
+# Concurrent requests by downloader.
+CONCURRENT_REQUESTS = 30
+
+# Max concurrent requests to any single domain.
+CONCURRENT_REQUESTS_PER_DOMAIN = 15

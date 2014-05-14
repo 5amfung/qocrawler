@@ -178,7 +178,6 @@ class YelpSpider(CrawlSpider):
         for field, selector in self._item_selectors.iteritems():
             loader.add_xpath(field, selector)
 
-        reviews = []
         master_review = loader.load_item()
         review_selectors = sel.xpath('//div[contains(@class, "review")][@itemprop="review"]')
 
@@ -188,9 +187,9 @@ class YelpSpider(CrawlSpider):
             for field, selector in self._review_selectors.iteritems():
                 review_loader.add_xpath(field, selector)
 
-            reviews.append(review_loader.load_item())
+            yield review_loader.load_item()
 
-        return reviews
+        return
 
     @classmethod
     def _is_right_category(cls, selector):
