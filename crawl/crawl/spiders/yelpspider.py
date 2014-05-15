@@ -163,12 +163,13 @@ class YelpSpider(CrawlSpider):
     }
 
     def parse_review(self, response):
-        self.log('Parse URL: %s' % response.url, level=log.INFO)
-
         sel = Selector(response)
 
         if not self._is_right_category(sel):
+            self.log('Skip URL: %s' % response.url, level=log.INFO)
             return
+
+        self.log('Parse URL: %s' % response.url, level=log.INFO)
 
         loader = ItemLoader(item=YelpReview(), selector=sel)
         loader.add_value('crawl_date', '%s' % datetime.utcnow())

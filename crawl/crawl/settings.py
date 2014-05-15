@@ -51,10 +51,10 @@ USER_AGENT_LIST = [
 REDIRECT_ENABLED = False
 
 # Concurrent requests by downloader.
-CONCURRENT_REQUESTS = 30
+CONCURRENT_REQUESTS = 50
 
 # Max concurrent requests to any single domain.
-CONCURRENT_REQUESTS_PER_DOMAIN = 30
+CONCURRENT_REQUESTS_PER_DOMAIN = 50
 
 # FIFO
 DEPTH_PRIORITY = 1
