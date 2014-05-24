@@ -28,7 +28,7 @@ COOKIES_ENABLED = False
 
 # Random delay from 0.5 and 1.5 * DOWNLOAD_DELAY
 RANDOMIZE_DOWNLOAD_DELAY = True
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 3
 
 # Disable the default user agent middleware and use our own random user agent downloader middleware.
 DOWNLOADER_MIDDLEWARES = {
@@ -51,10 +51,10 @@ USER_AGENT_LIST = [
 REDIRECT_ENABLED = False
 
 # Concurrent requests by downloader.
-CONCURRENT_REQUESTS = 50
+# CONCURRENT_REQUESTS = 16
 
 # Max concurrent requests to any single domain.
-CONCURRENT_REQUESTS_PER_DOMAIN = 50
+# CONCURRENT_REQUESTS_PER_DOMAIN = 8
 
 # FIFO
 DEPTH_PRIORITY = 1
