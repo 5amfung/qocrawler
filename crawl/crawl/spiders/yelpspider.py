@@ -195,6 +195,4 @@ class YelpSpider(CrawlSpider):
     @classmethod
     def _is_right_category(cls, selector):
         """Return true if selector finds a specific string that indicates the right category."""
-        return (len(selector.re('<span itemprop="title">Restaurants</span>')) or
-                len(selector.re('<span itemprop="title">Food</span>')) or
-                len(selector.re('<span itemprop="title">Nightlife</span>')))
+        return len(selector.re('<span itemprop="title">Restaurants</span>')) > 0
